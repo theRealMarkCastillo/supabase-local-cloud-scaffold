@@ -69,7 +69,9 @@ flowchart LR
 ```
 
 Supabase Auth already handles identity. Redis and Keycloak are not required services
-for every project. See [optional modules](docs/OPTIONAL_MODULES.md) for when they help.
+for every project. The [optional-modules comparison](docs/OPTIONAL_MODULES.md) explains
+what Supabase covers first, when an addition is justified, and what operating it adds.
+Queues/cron and other available capabilities still need explicit setup and testing.
 
 ## Daily development
 
