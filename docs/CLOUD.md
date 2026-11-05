@@ -69,3 +69,5 @@ Sources checked 2026-11-05:
 [Docker requirements](https://supabase.com/docs/guides/self-hosting/docker),
 [Fly configuration](https://fly.io/docs/reference/configuration/),
 [Render Docker](https://render.com/docs/docker).
+
+Email capture, recovery checks and cloud SMTP configuration: [EMAIL.md](EMAIL.md).

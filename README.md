@@ -145,3 +145,14 @@ asymmetric signing/new API keys; adoption and rotation need a coordinated tested
 upgrade before using that path. Local development is not production hardening.
 Read [security](docs/SECURITY.md), [hosting](docs/CLOUD.md),
 [validation](docs/VALIDATION.md), and [upstream provenance](vendor/UPSTREAM.md).
+
+## Email capture and recovery checks
+
+```sh
+make email-config   # Apply local Auth/Mailpit settings; already included in make up
+make email-test     # Capture a synthetic signup confirmation
+make email-smoke    # Verify confirmation and backend password recovery/login
+```
+
+See [EMAIL.md](docs/EMAIL.md) for the shared command contract, inbox address, cloud
+SMTP configuration and the distinction between backend recovery and application UI.
