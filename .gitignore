@@ -13,3 +13,5 @@ web-tanstack/.output/
 web-tanstack/.tanstack/
 web-tanstack/src/shared/
 !.env.hosted.tanstack.example
+
+.venv-tools/

@@ -5,6 +5,7 @@ import argparse
 import hashlib
 import re
 import subprocess
+from sql_safety import validate_sql
 
 ROOT = Path(__file__).resolve().parents[1]
 DIRECTORY = ROOT / 'supabase/migrations'
@@ -43,12 +44,12 @@ def create(name):
 def apply(compose):
     for path in ordered():
         sql = path.read_text()
-        if re.search(r'^\s*\\', sql, re.M) or re.search(r'^\s*(?:BEGIN|COMMIT|ROLLBACK|START\s+TRANSACTION)\s*;', sql, re.I | re.M):
-            raise SystemExit('Use transactional SQL without psql commands or explicit transaction control')
+        validate_sql(sql)
         version = path.name.split('_', 1)[0]
         checksum = hashlib.sha256(path.read_bytes()).hexdigest()
         command = rf"""BEGIN;
 SELECT pg_advisory_xact_lock(879312);
+SET LOCAL standard_conforming_strings=on;
 CREATE SCHEMA IF NOT EXISTS scaffold_internal;
 REVOKE ALL ON SCHEMA scaffold_internal FROM PUBLIC, anon, authenticated;
 CREATE TABLE IF NOT EXISTS scaffold_internal.migrations(version text PRIMARY KEY, checksum text NOT NULL);

@@ -45,10 +45,18 @@ try:
    assert query("SELECT to_regclass('public.must_rollback') IS NULL;",name)=='t'
    assert query('SELECT count(*) FROM supabase_migrations.schema_migrations;',name)=='1'
    failed.unlink()
+   alias=directory/'20260101000001_alias.sql'
+   alias.write_text('CREATE TABLE public.must_not_commit(id int); COMMIT WORK; SELECT 1/0;')
+   try:migrations.apply(test_compose)
+   except SystemExit:pass
+   else:raise AssertionError('Transaction alias was accepted')
+   assert query("SELECT to_regclass('public.must_not_commit') IS NULL;",name)=='t'
+   assert query('SELECT count(*) FROM supabase_migrations.schema_migrations;',name)=='1'
+   alias.unlink()
    (directory/'20260101000002_followup.sql').write_text('ALTER TABLE public.probe ADD COLUMN extra text;')
    migrations.apply(test_compose)
    assert query('SELECT count(*) FROM supabase_migrations.schema_migrations;',name)=='2'
- print('PASS: repeat execution, edited migration refusal, RLS, transactional rollback and incremental history')
+ print('PASS: repeat execution, edited migration refusal, RLS, transactional rollback, transaction-alias refusal before DDL and incremental history')
 finally:
  query(f'DROP DATABASE "{name}";')
  print('Removed only the disposable migration-check database.')

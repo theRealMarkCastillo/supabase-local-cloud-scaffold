@@ -10,6 +10,24 @@ is also available. The backend interfaces are framework-independent: Supabase Au
 Postgres with RLS, REST API, private Storage, Realtime and Edge Functions. The working
 demo has private notes, file uploads and a small authenticated text-analysis function.
 
+
+## Choose the matching scaffold
+
+| Starting point | Repository |
+| --- | --- |
+| New app using Supabase Auth, RLS, Storage, Realtime and Functions | [supabase-local-cloud-scaffold](https://github.com/theRealMarkCastillo/supabase-local-cloud-scaffold) |
+| Existing exported app whose Supabase interfaces should be retained | [lovable-local-scaffold](https://github.com/theRealMarkCastillo/lovable-local-scaffold) |
+| Custom API, OIDC sessions and independently selected data/worker/storage services | [local-cloud-demo](https://github.com/theRealMarkCastillo/local-cloud-demo) |
+
+A worker can also be added to the Supabase starter; it does not automatically require
+Redis. The main choice is Supabase's backend API contract versus your own API contract.
+Repository links are private and require account access.
+
+Review fixes, checks and scope: [review record](docs/REVIEW.md).
+
+Public/internal URL configuration, tunnels and cloud callback registrations:
+[URLs and callbacks](docs/URLS_AND_CALLBACKS.md).
+
 ## Start a project
 
 Requirements: Docker/Compose v2, Python 3.11+, make, and enough resources for the

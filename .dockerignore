@@ -9,3 +9,5 @@ vendor
 **/.output
 **/.tanstack
 web-tanstack/src/shared
+
+.venv-tools/

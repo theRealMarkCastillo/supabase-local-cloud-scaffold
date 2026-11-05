@@ -9,7 +9,13 @@ triggers, storage buckets/policies and required extensions as appropriate.
 Run `make migrate` against the project's already running database, or `make up` to
 start/rebuild and apply pending files. Each file and its migration-history entries
 commit in one transaction under a database advisory lock. Failure rolls back that
-file; earlier files remain applied. Logs are private at .runtime/migration.log.
+file for transactional SQL; earlier files remain applied. The PostgreSQL AST parser
+rejects top-level transaction control, including COMMIT WORK/END and savepoints,
+before execution. Make installs its pinned local tooling environment automatically;
+run `make tools` before direct Python commands. This is not a SQL sandbox or schema
+compatibility proof: review trusted SQL, dynamic routines and extensions. See
+[parser/tooling notes](VALIDATION.md) and [review fixes](REVIEW.md).
+Logs are private at .runtime/migration.log.
 
 The runner records standard versions in supabase_migrations.schema_migrations and
 checksums in a private scaffold_internal ledger. Unchanged applied files are skipped;

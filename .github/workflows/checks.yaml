@@ -10,5 +10,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: make test
-      - run: python3 -m py_compile scripts/stack.py scripts/functions.py scripts/migrations.py scripts/smoke.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: make test frontend-test
+      - run: python3 -m py_compile scripts/stack.py scripts/functions.py scripts/migrations.py scripts/smoke.py scripts/setup_tools.py scripts/sql_safety.py
