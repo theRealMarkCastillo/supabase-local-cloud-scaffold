@@ -1,0 +1,4 @@
+# Application function policy. Defaults to JWT verification for new functions.
+# Public webhooks must validate their provider signature inside the handler.
+[functions.analyze]
+verify_jwt = true

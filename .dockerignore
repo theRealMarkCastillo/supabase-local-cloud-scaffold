@@ -1,0 +1,11 @@
+.git
+.env
+.env.*
+.runtime
+vendor
+**/node_modules
+**/dist
+
+**/.output
+**/.tanstack
+web-tanstack/src/shared
